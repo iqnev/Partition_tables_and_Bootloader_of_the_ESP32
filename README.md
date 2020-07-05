@@ -25,6 +25,7 @@ When the ESP32 board is powered up initially the control is given to 4096 bytes 
 By default, ESP32 uses single factory app with no OTA partition table. You can see the details of this partition below.
 
 **More details:**
+
 The `nvs` partition is a non-volatile storage partition which consists of the bootloader partition table. The `phy_init` consists of default configuration parameters for all wired and wireless communication in the ESP32.
 The factory partition consists of the current code which is flashed.
 
@@ -36,7 +37,7 @@ Once the upload is completed, the id of the partition is saved in otadata and th
 When the factory app OTA definitions mode is enabled in the ESP32 the factory partition is split into three partitions of equal size with name `ota_0`, `ota_1` and `ota_2`.
 Also, there is otadata partition - partition points the bootloader to boot correct OTA partition 6.39min.
 
-** For example:**
+**For example:**
 
 There is a new version of our code which currently is running in the factory partition of the flash memory. When we sent a new code via Wi-Fi to
 the flash memory, the code will first be saved `OTA_0` partition. Now a code integrity check will be done in this OTA partition to confirm whether the code is usable or not. Later the OTA partition data will be updated to point the bootloader to use the `OTA_0` as the boot partition instead of the default factory partition. If by any chance the code in `OTA_0` partition faces some errors the ESP32 automatically rollback to use the default factory partition by resetting the boot flag. If ota data is empty, it will execute the factory app.
