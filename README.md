@@ -11,7 +11,7 @@ The partition table starts at a default offset of 32768 bytes it has a size of 3
 32 bytes long. The last 32 bytes are MDF checksum used for checking the integrity of the partition table.
 When the ESP32 board is powered up initially the control is given to 4096 bytes position in the flash memory. It is called the bootloader. The responsibility of the bootloader is to select a correct partition to boot based on the partition table then load this code to RAM of the ESP32 chip and finally transfer the memory management to the memory management unit inside the ESP32 chip. This is how the new code is accessed from the flash memory and executed on the ESP32.
 
-5.12.drawio
+[![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/5_12.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/5_12.jpg)
 
 ------------
 
@@ -29,7 +29,8 @@ By default, ESP32 uses single factory app with no OTA partition table. You can s
 The `nvs` partition is a non-volatile storage partition which consists of the bootloader partition table. The `phy_init` consists of default configuration parameters for all wired and wireless communication in the ESP32.
 The factory partition consists of the current code which is flashed.
 
-5.57.drawio
+[![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/5_57.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/5_57.jpg)
+
 
 The second-stage bootloader reads the partition table at address `0x8000` and searches for app partitions. It decides which application has to be executed based on the content of the otadata partition: if this partition is empty or doesn't exist, the bootloader executes the application stored in the factory partition. This allows to implement an over-the-air (OTA) application update process: you send the new version of your application to the ESP32 chip(the version is stored in a new app partition).
 Once the upload is completed, the id of the partition is saved in otadata and the chip is rebooted; the bootloader will execute the new version.
@@ -42,4 +43,8 @@ Also, there is otadata partition - partition points the bootloader to boot corre
 There is a new version of our code which currently is running in the factory partition of the flash memory. When we sent a new code via Wi-Fi to
 the flash memory, the code will first be saved `OTA_0` partition. Now a code integrity check will be done in this OTA partition to confirm whether the code is usable or not. Later the OTA partition data will be updated to point the bootloader to use the `OTA_0` as the boot partition instead of the default factory partition. If by any chance the code in `OTA_0` partition faces some errors the ESP32 automatically rollback to use the default factory partition by resetting the boot flag. If ota data is empty, it will execute the factory app.
 
+[![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/7_04.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/7_04.jpg)
+
 You can save a lot of memory if you create a custom partition table. You have to take this fact into your design before implementing the OTA feature in a product.
+
+[![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/8_22.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/8_22.jpg)
