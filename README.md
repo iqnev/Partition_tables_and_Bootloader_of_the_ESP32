@@ -22,6 +22,10 @@ When the ESP32 board is powered up initially the control is given to 4096 bytes 
 
 ------------
 
+**What is Bootloader?**
+
+In the ESP32 ROM memory there is a small program, named ** first-stage bootloader**. This program is executed at each reset of the chip. It configures the access to the external flash memory and, if required, stores on it new data coming from the USB port. Once finished, it accesses the flash memory (at address` 0x1000`) and loads and executes the **second-stage bootloader**. The second-stage bootloader reads the partition table at address `0x8000` and searches for app partitions. It decides which application has to be executed based on the content of the otadata partition.
+
 By default, ESP32 uses single factory app with no OTA partition table. You can see the details of this partition below.
 
 **More details:**
