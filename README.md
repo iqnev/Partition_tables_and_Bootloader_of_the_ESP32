@@ -45,6 +45,6 @@ the flash memory, the code will first be saved `OTA_0` partition. Now a code int
 
 [![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/7_04.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/7_04.jpg)
 
-You can save a lot of memory if you create a custom partition table. You have to take this fact into your design before implementing the OTA feature in a product.
+You can save a lot of memory if you create a custom partition table. You have to take this fact into your design before implementing the OTA feature in a product. There are now three app partition definitions. The type of the factory app (at `0x10000`) and the next two “OTA” apps are all set to app, but their subtypes are different.
 
 [![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/8_22.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/8_22.jpg)
