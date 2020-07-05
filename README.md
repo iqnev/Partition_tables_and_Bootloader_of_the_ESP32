@@ -1,0 +1,2 @@
+# Partition_tables_and_Bootloader_of_the_ESP32
+ESP32
