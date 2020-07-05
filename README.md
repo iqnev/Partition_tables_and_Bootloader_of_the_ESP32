@@ -5,7 +5,7 @@ The ESP32 chip requires an external flash memory to store programs, data, config
 The Flash memory is non-volatile memory, unlike `SRAM` memory. Thus even when ESP32 is switched off the code will be safe int to flash memory.
 Most of the modules like ESP32 Wroom use external` Flash-W25Q32` (4M Bytes) for storing the application code. The ESP32 flash memory can contain multiple apps, calibration data, file systems, parameter storage, etc. Hence, it's divided into sections (partitions). The list partitions, their size and position within the flash memory is stored in the memory itself (at address `0x8000`) and it’s called partition table. It's just like the index page of a book but with more details of the content.
 
-4_05.jpg
+[![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/4_05.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/4_05.jpg)
 
 The partition table starts at a default offset of 32768 bytes it has a size of 3072 bytes with maximum of 9 to 5 distinct table entries. Each table entry is
 32 bytes long. The last 32 bytes are MDF checksum used for checking the integrity of the partition table.
