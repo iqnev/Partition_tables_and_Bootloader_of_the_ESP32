@@ -40,9 +40,9 @@ The factory partition consists of the current code which is flashed.
 
 
 When the factory app OTA definitions mode is enabled in the ESP32 the factory partition is split into three partitions of equal size with name `ota_0`, `ota_1` and `ota_2`.
-Also, there is otadata partition - partition points the bootloader to boot correct OTA partition 6.39min.
+Also, there is otadata partition - partition points the bootloader to boot correct OTA partition.
 
-**For example:**
+**OTA update:**
 
 There is a new version of our code which currently is running in the factory partition of the flash memory. When we sent a new code via Wi-Fi to
 the flash memory, the code will first be saved `OTA_0` partition. Now a code integrity check will be done in this OTA partition to confirm whether the code is usable or not. Later the OTA partition data will be updated to point the bootloader to use the `OTA_0` as the boot partition instead of the default factory partition. If by any chance the code in `OTA_0` partition faces some errors the ESP32 automatically rollback to use the default factory partition by resetting the boot flag. If ota data is empty, it will execute the factory app.
