@@ -24,7 +24,9 @@ When the ESP32 board is powered up initially the control is given to 4096 bytes 
 
 **What is Bootloader?**
 
-In the ESP32 ROM memory there is a small program, named ** first-stage bootloader**. This program is executed at each reset of the chip. It configures the access to the external flash memory and, if required, stores on it new data coming from the USB port. Once finished, it accesses the flash memory (at address` 0x1000`) and loads and executes the **second-stage bootloader**. The second-stage bootloader reads the partition table at address `0x8000` and searches for app partitions. It decides which application has to be executed based on the content of the otadata partition.
+In the ESP32 ROM memory there is a small program, named ** first-stage bootloader**. This program is executed at each reset of the chip. It configures the access to the external flash memory and, if required, stores on it new data coming from the USB port. Once finished, it accesses the flash memory (at address` 0x1000`) and loads and executes the **second-stage bootloader**. The second-stage bootloader reads the partition table at address `0x8000` and searches for app partitions. It decides which application has to be executed based on the content of the otadata partition: if this partition is empty or doesn't exist, the bootloader executes the application stored in the factory partition. This allows to implement an over-the-air (OTA) application update process: you send the new version of your application to the ESP32 chip(the version is stored in a new app partition).
+Once the upload is completed, the id of the partition is saved in otadata and the chip is rebooted; the bootloader will execute the new version.
+[![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/7_04.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/7_04.jpg)
 
 By default, ESP32 uses single factory app with no OTA partition table. You can see the details of this partition below.
 
@@ -35,9 +37,6 @@ The factory partition consists of the current code which is flashed.
 
 [![](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/5_57.jpg)](https://github.com/iqnev/Partition_tables_and_Bootloader_of_the_ESP32/blob/master/source/5_57.jpg)
 
-
-The second-stage bootloader reads the partition table at address `0x8000` and searches for app partitions. It decides which application has to be executed based on the content of the otadata partition: if this partition is empty or doesn't exist, the bootloader executes the application stored in the factory partition. This allows to implement an over-the-air (OTA) application update process: you send the new version of your application to the ESP32 chip(the version is stored in a new app partition).
-Once the upload is completed, the id of the partition is saved in otadata and the chip is rebooted; the bootloader will execute the new version.
 
 When the factory app OTA definitions mode is enabled in the ESP32 the factory partition is split into three partitions of equal size with name `ota_0`, `ota_1` and `ota_2`.
 Also, there is otadata partition - partition points the bootloader to boot correct OTA partition 6.39min.
